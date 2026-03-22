@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aadya Garg — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f4;
+      --ink: #1a1410;
+      --terracotta: #c4612a;
+      --gold: #b8923a;
+      --blush: #e8c4a8;
+      --muted: #6b5c4e;
+      --light-muted: #c8b8a8;
+      --border: #ddd0c0;
+      --card-bg: #ffffff;
+      --section-gap: 6rem;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== NOISE TEXTURE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 4rem;
+      background: rgba(245, 240, 232, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--terracotta);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--terracotta); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ===== HERO SECTION ===== */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      right: -10%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50vw;
+      height: 80vh;
+      background: radial-gradient(ellipse, rgba(196, 97, 42, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--terracotta);
+      display: inline-block;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+
+    .hero-tagline {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+      max-width: 420px;
+    }
+
+    .hero-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .contact-pill:hover {
+      border-color: var(--terracotta);
+      color: var(--terracotta);
+    }
+
+    .hero-scroll {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--light-muted);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    .hero-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(26, 20, 16, 0.08);
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--terracotta), var(--gold));
+    }
+
+    .card-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.6rem;
+    }
+
+    .card-value {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .card-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: var(--section-gap) 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-number {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      color: var(--terracotta);
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 300;
+      color: var(--ink);
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ===== EDUCATION ===== */
+    #education { background: var(--warm-white); max-width: 100%; padding: var(--section-gap) 4rem; }
+    #education .inner { max-width: 1100px; margin: 0 auto; }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .edu-card {
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 2.2rem;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.3s;
+    }
+
+    .edu-card:hover { box-shadow: 0 8px 32px rgba(26,20,16,0.07); }
+
+    .edu-year {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.8rem;
+    }
+
+    .edu-inst {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+
+    .edu-degree {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .edu-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .edu-highlights li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .edu-highlights li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    /* ===== EXPERIENCE ===== */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-meta { padding-top: 0.25rem; }
+
+    .exp-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 0.5rem;
+    }
+
+    .exp-company {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .exp-location {
+      font-size: 0.78rem;
+      color: var(--light-muted);
+      margin-top: 0.25rem;
+    }
+
+    .exp-role {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .exp-desc {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .exp-desc li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .exp-desc li::before {
+      content: '◆';
+      font-size: 0.45rem;
+      position: absolute;
+      left: 0;
+      top: 0.45rem;
+      color: var(--terracotta);
+    }
+
+    /* ===== SKILLS / TAGS ===== */
+    #skills { background: var(--ink); max-width: 100%; padding: var(--section-gap) 4rem; }
+    #skills .inner { max-width: 1100px; margin: 0 auto; }
+    #skills .section-title { color: var(--cream); }
+    #skills .section-number { color: var(--terracotta); }
+    #skills .section-line { background: rgba(245,240,232,0.15); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .skill-category {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.8rem;
+    }
+
+    .skill-cat-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.2rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .skill-tag {
+      font-size: 0.8rem;
+      color: var(--cream);
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 0.35rem 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .skill-tag:hover {
+      background: var(--terracotta);
+      border-color: var(--terracotta);
+    }
+
+    /* ===== EXTRAS ===== */
+    .extras-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .extra-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .extra-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(26,20,16,0.07);
+    }
+
+    .extra-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--blush), var(--cream));
+      border-radius: 10px;
+    }
+
+    .extra-content {}
+    .extra-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .extra-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 3rem 4rem;
+      border-top: 1px solid var(--border);
+      background: var(--warm-white);
+    }
+
+    .footer-name {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--terracotta);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-sub {
+      font-size: 0.8rem;
+      color: var(--light-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ===== HORIZONTAL MARQUEE ===== */
+    .marquee-section {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      background: var(--warm-white);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--light-muted);
+      flex-shrink: 0;
+    }
+
+    .marquee-dot {
+      color: var(--terracotta);
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollAnim {
+      0%, 100% { transform: scaleX(1); }
+      50% { transform: scaleX(0.5); }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 860px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; }
+      .hero-right { display: none; }
+      section { padding: 4rem 2rem; }
+      #education, #skills { padding: 4rem 2rem; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .extras-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Aadya Garg</a>
+    <ul class="nav-links">
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#extras">Extras</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Portfolio 2025</div>
+      <h1 class="hero-name">Aadya<br><em>Garg</em></h1>
+      <p class="hero-tagline">A storyteller at heart who turns curiosity into action — weaving words, movement, and perspectives into ideas.</p>
+      <div class="hero-contact">
+        <a href="tel:+918448825266" class="contact-pill">📞 +91 84488 25266</a>
+        <a href="#" class="contact-pill">🔗 LinkedIn</a>
+        <a href="mailto:aadya@email.com" class="contact-pill">✉ Email</a>
+      </div>
+      <div class="hero-scroll">
+        <span class="scroll-line"></span>
+        Scroll to explore
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="card-label">Currently at</div>
+        <div class="card-value">Masters' Union</div>
+        <div class="card-sub">Technology & Business Management · 2025–2029</div>
+      </div>
+      <div class="hero-card">
+        <div class="card-label">Co-Founder</div>
+        <div class="card-value">Beond</div>
+        <div class="card-sub">D2C Apparel Brand · Instagram-based</div>
+      </div>
+      <div class="hero-card">
+        <div class="card-label">Passion</div>
+        <div class="card-value">Theatre · Dance · Poetry</div>
+        <div class="card-sub">11+ years Bharatanatyam · National theatre competitions</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item">Bharatanatyam</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Digital Marketing</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Theatre</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Poetry</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Entrepreneurship</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Research</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Storytelling</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Creative Writing</span><span class="marquee-dot">✦</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="marquee-item">Bharatanatyam</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Digital Marketing</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Theatre</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Poetry</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Entrepreneurship</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Research</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Storytelling</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Creative Writing</span><span class="marquee-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div id="education">
+    <div class="inner">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title">Education</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-year">2025 – 2029</div>
+          <div class="edu-inst">Masters' Union</div>
+          <div class="edu-degree">Undergraduate Programme in Technology & Business Management · Gurugram</div>
+          <ul class="edu-highlights">
+            <li>Currently pursuing an interdisciplinary programme blending tech and business</li>
+          </ul>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">2025 – 2028</div>
+          <div class="edu-inst">IIM Bangalore</div>
+          <div class="edu-degree">BBA · Digital Business & Entrepreneurship · Bengaluru</div>
+          <ul class="edu-highlights">
+            <li>Pursuing a business administration programme with a focus on digital business and entrepreneurship</li>
+          </ul>
+        </div>
+        <div class="edu-card">
+          <div class="edu-year">2021 – 2025</div>
+          <div class="edu-inst">Delhi Public School RK Puram</div>
+          <div class="edu-degree">Class 12 · 92% · Delhi</div>
+          <ul class="edu-highlights">
+            <li>Awarded Blue Tie & Scholar Badge for consecutive excellence in academics & extracurriculars</li>
+            <li>Core Member of Expressions Theatre Club, mentoring juniors in performance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Experience & Projects</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Mar 2026 – Present</div>
+        <div class="exp-company">Khet</div>
+        <div class="exp-location">khet.in</div>
+      </div>
+      <div>
+        <div class="exp-role">Marketing Intern</div>
+        <ul class="exp-desc">
+          <li>Helped ideate content for the Instagram page of khet.in, contributing creative ideas aligned with the brand's voice and audience</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+        <div class="exp-company">PUMA</div>
+        <div class="exp-location">Delhi</div>
+      </div>
+      <div>
+        <div class="exp-role">Digital Marketing Intern</div>
+        <ul class="exp-desc">
+          <li>Boosted social media engagement by drafting content for Instagram Reels and Stories aligned with Puma's brand voice</li>
+          <li>Optimized campaign planning for youth-focused initiatives by researching strategies and audience trends</li>
+          <li>Synthesized audience behavior insights to propose data-driven marketing strategies for brand penetration</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2025</div>
+        <div class="exp-company">Beond</div>
+        <div class="exp-location">Live Project</div>
+      </div>
+      <div>
+        <div class="exp-role">Co-Founder</div>
+        <ul class="exp-desc">
+          <li>Identified a market gap for sentimental, high-quality matching apparel and launched an Instagram-based D2C storefront for couples and friends</li>
+          <li>Executed organic marketing campaigns and storytelling-driven content, building a community of loyal customers</li>
+          <li>Managed end-to-end operations: vendor coordination, inventory management, and personalized customer service</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2023 – 2024</div>
+        <div class="exp-company">DPS RK Puram</div>
+        <div class="exp-location">Expressions Theatre Club</div>
+      </div>
+      <div>
+        <div class="exp-role">Lead Member & Student Mentor</div>
+        <ul class="exp-desc">
+          <li>Spearheaded the organization of a national-level competition featuring over 40 schools</li>
+          <li>Provided leadership and guidance to junior members, overseeing training in stagecraft and performance</li>
+          <li>Represented the institution in high-stakes theatre competitions and cultural events</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">2020 – Present</div>
+        <div class="exp-company">"Xan"</div>
+        <div class="exp-location">Academic Project</div>
+      </div>
+      <div>
+        <div class="exp-role">Linguistic Inclusivity Research</div>
+        <ul class="exp-desc">
+          <li>Authored a research proposal advocating replacing gendered terms like "mankind" with the inclusive variable "xankind"</li>
+          <li>Blended mathematical logic with socio-linguistic analysis to challenge gender biases in everyday language</li>
+          <li>Positioned language as a tool for social change — making a compelling case for how terminology shapes cultural perceptions of equality</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <div id="skills">
+    <div class="inner">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2 class="section-title">Skills & Interests</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <div class="skill-cat-title">Creative</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Storytelling</span>
+            <span class="skill-tag">Creative Writing</span>
+            <span class="skill-tag">Poetry</span>
+            <span class="skill-tag">Theatre</span>
+            <span class="skill-tag">Bharatanatyam</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-title">Marketing & Business</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Digital Marketing</span>
+            <span class="skill-tag">Content Strategy</span>
+            <span class="skill-tag">Social Media</span>
+            <span class="skill-tag">D2C Commerce</span>
+            <span class="skill-tag">Research</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-title">Tools & Soft Skills</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Canva</span>
+            <span class="skill-tag">Public Speaking</span>
+            <span class="skill-tag">Debate</span>
+            <span class="skill-tag">Leadership</span>
+            <span class="skill-tag">Mentoring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXTRAS -->
+  <section id="extras">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Beyond the Resume</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="extras-grid">
+      <div class="extra-card">
+        <div class="extra-icon">💃</div>
+        <div class="extra-content">
+          <div class="extra-title">Bharatanatyam</div>
+          <div class="extra-desc">11+ years of classical Indian dance, performing at prestigious cultural venues and ceremonies to promote traditional storytelling through movement.</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-icon">✍️</div>
+        <div class="extra-content">
+          <div class="extra-title">Creative Writing & Poetry</div>
+          <div class="extra-desc">Winner in multiple regional poetry and creative writing competitions, with work featured in school magazines and online platforms.</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-icon">🎭</div>
+        <div class="extra-content">
+          <div class="extra-title">Competitive Theatre & Debate</div>
+          <div class="extra-desc">Performed in numerous theatre productions and represented the school in inter-school debates, focusing on original expression and audience persuasion.</div>
+        </div>
+      </div>
+      <div class="extra-card">
+        <div class="extra-icon">📚</div>
+        <div class="extra-content">
+          <div class="extra-title">Avid Reader & Researcher</div>
+          <div class="extra-desc">Passionate about books, music, and deep research dives that connect ideas across disciplines — from linguistics to marketing to classical arts.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Aadya Garg</div>
+    <div class="footer-sub">Storyteller · Creator · Entrepreneur · 2025</div>
+  </footer>
+
+</body>
+</html>
